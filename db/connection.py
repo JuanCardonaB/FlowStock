@@ -4,14 +4,19 @@ from sqlalchemy.orm import sessionmaker
 from os import environ
 from dotenv import load_dotenv
 
+# Load environment variables
 load_dotenv()
 
+# Get the connection string(DATABASE URL)
 connection_string = environ.get("DATABASE_URL")
 
+# Create the engine
 engine=create_engine(connection_string)
 
+# Create the session
 Session = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
+# Create the base class for the models
 Base = declarative_base()
 
 

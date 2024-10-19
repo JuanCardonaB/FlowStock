@@ -6,8 +6,11 @@ from db.connection import Session
 def get_users_types() -> APIResponse:
     try :
         session = Session()
+        # Fetch all users types
         users_types_list = session.query(users_types).all()
         session.close()
+
+        # if there are no users types return an empty list
         if not users_types_list:
             return APIResponse(
                 message="No users types found",
@@ -15,12 +18,15 @@ def get_users_types() -> APIResponse:
                 status="ok",
                 status_code=200
             )
+        
+        # return all users types
         return APIResponse(
             message="All users types",
             data=[users_types.to_dict() for users_types in users_types_list],
             status="ok",
             status_code=200
         )
+    
     except Exception as e:
         return APIResponse(
             message="An error occurred while fetching users types",
