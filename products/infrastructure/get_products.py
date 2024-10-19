@@ -8,5 +8,6 @@ def get_products():
             {"name": "banana", "price": 0.5},
             {"name": "cherry", "price": 2.0},
         ],
-        status="ok"
+        status="ok",
+        status_code=200
     )
