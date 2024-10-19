@@ -27,6 +27,9 @@ try:
 except Exception as e:
   print("Error connecting to PostgreSQL database:", e)
 
+# activate the venv
+# source venv/bin/activate
+
 # command to run the server
 #uvicorn app:app --reload 
 
