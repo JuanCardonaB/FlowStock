@@ -27,3 +27,8 @@ try:
 except Exception as e:
   print("Error connecting to PostgreSQL database:", e)
 
+# command to run the server
+#uvicorn app:app --reload 
+
+# commando to run view
+# npm run dev or sudo npm run dev
