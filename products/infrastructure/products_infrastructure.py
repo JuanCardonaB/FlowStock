@@ -1,5 +1,6 @@
 from models.response_model import APIResponse
 
+# This function returns all products.
 def get_products():
     return APIResponse(
         message="All products",

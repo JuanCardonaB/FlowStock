@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from db.connection import Base
+from db.connection import engine
 
 class users_types(Base):
     __tablename__ = 'users_types'
@@ -109,3 +108,5 @@ class inventory(Base):
             "supplier_id": self.supplier_id,
             "created_at": self.created_at
         }
+    
+Base.metadata.create_all(bind=engine)
