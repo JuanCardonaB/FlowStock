@@ -1,5 +1,5 @@
 # Here we define the models for the database tables
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from db.connection import Base
 from db.connection import engine
@@ -45,7 +45,7 @@ class users(Base):
 class products(Base):
     __tablename__ = 'products'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(50), nullable=False)
+    title = Column(Text, nullable=False)
     description = Column(String(50), nullable=False)
     price = Column(Float, nullable=False)
     stock = Column(Integer, nullable=False)

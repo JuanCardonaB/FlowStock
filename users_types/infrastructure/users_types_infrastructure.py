@@ -2,7 +2,7 @@ from models.response_model import APIResponse
 from db.models.FlowStockDB import users_types
 from db.connection import Session
 from datetime import datetime
-from users_types.models import users_types_models
+
 # This function returns all users types.
 def get_users_types() -> APIResponse:
     try :
@@ -142,6 +142,7 @@ def get_user_type_by_id(id: users_types) -> APIResponse:
             status_code=500
         )
 
+# This function updates a user type.
 def update_user_type(user_type_data: users_types) -> APIResponse:
     try:
         session = Session()
