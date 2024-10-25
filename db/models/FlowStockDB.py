@@ -1,5 +1,5 @@
 # Here we define the models for the database tables
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from db.connection import Base
 from db.connection import engine
@@ -9,12 +9,14 @@ class users_types(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False, unique=True)
     created_at = Column(DateTime, nullable=False)
+    is_deleted = Column(Integer, nullable=False)
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "created_at": self.created_at
+            "created_at": self.created_at,
+            "is_deleted": self.is_deleted
         }
 
 class users(Base):
@@ -45,11 +47,13 @@ class users(Base):
 class products(Base):
     __tablename__ = 'products'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(50), nullable=False)
+    title = Column(Text, nullable=False)
     description = Column(String(50), nullable=False)
     price = Column(Float, nullable=False)
     stock = Column(Integer, nullable=False)
+    product_images = Column(Text, nullable=False)
     created_at = Column(DateTime, nullable=False)
+    is_deleted = Column(Integer, nullable=False)
 
     def to_dict(self):
         return {
@@ -58,7 +62,9 @@ class products(Base):
             "description": self.description,
             "price": self.price,
             "stock": self.stock,
-            "created_at": self.created_at
+            "product_images": self.product_images,
+            "created_at": self.created_at,
+            "is_deleted": self.is_deleted
         }
     
 class sales(Base):
