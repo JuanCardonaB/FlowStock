@@ -155,13 +155,14 @@ def delete_product(id: int) -> APIResponse:
                 status_code=404
             )
         
-        session.delete(product)
+        product.is_deleted = 1
         session.commit()
+        product_data = product.to_dict()
         session.close()
 
         return APIResponse(
             message="Product deleted",
-            data=None,
+            data=product_data,
             status="ok",
             status_code=200
         )

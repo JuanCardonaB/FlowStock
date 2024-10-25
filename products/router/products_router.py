@@ -105,16 +105,9 @@ async def edit_product(
         "images": product_image
     }
 
-    # return APIResponse(
-    #     message="Product updated",
-    #     data=product_data,
-    #     status="ok",
-    #     status_code=200
-    # )
-
     return products_infrastructure.update_product(product_data)
 
 # This route deletes a product.
-@router.delete("/delete_product", response_model=APIResponse)
-def delete_product(request: product_model.ProductDeleteRequest):
-    return products_infrastructure.delete_product(request.id)
+@router.post("/delete_product", response_model=APIResponse)
+def delete_product(product_id: int = Form(...)):
+    return products_infrastructure.delete_product(product_id)

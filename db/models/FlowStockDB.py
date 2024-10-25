@@ -51,6 +51,7 @@ class products(Base):
     stock = Column(Integer, nullable=False)
     product_images = Column(Text, nullable=False)
     created_at = Column(DateTime, nullable=False)
+    is_deleted = Column(Integer, nullable=False)
 
     def to_dict(self):
         return {
@@ -60,7 +61,8 @@ class products(Base):
             "price": self.price,
             "stock": self.stock,
             "product_images": self.product_images,
-            "created_at": self.created_at
+            "created_at": self.created_at,
+            "is_deleted": self.is_deleted
         }
     
 class sales(Base):
