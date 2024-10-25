@@ -2,7 +2,7 @@ from models.response_model import APIResponse
 from db.models.FlowStockDB import users_types
 from db.connection import Session
 from datetime import datetime
-from users_types.models import users_types_models
+
 # This function returns all users types.
 def get_users_types() -> APIResponse:
     try :
@@ -85,8 +85,8 @@ def delete_user_type(id: users_types) -> APIResponse:
                 status_code=404
             )
         
-        # Delete the user type
-        session.delete(user_type)
+        user_type.is_deleted = 1
+        
         # Commit the session
         session.commit()
         # Close the session
@@ -142,11 +142,12 @@ def get_user_type_by_id(id: users_types) -> APIResponse:
             status_code=500
         )
 
+# This function updates a user type.
 def update_user_type(user_type_data: users_types) -> APIResponse:
     try:
         session = Session()
         # Fetch the user type by id
-        user_type = session.query(users_types).filter_by(id=user_type_data.id).first()
+        user_type = session.query(users_types).filter_by(id=user_type_data['id']).first()
         # If the user type does not exist return an error
         if not user_type:
             return APIResponse(
@@ -157,7 +158,7 @@ def update_user_type(user_type_data: users_types) -> APIResponse:
             )
         
         # Update the user type name
-        user_type.name = user_type_data.name
+        user_type.name = user_type_data['name']
         # Commit the session
         session.commit()
         # Get the user type data
