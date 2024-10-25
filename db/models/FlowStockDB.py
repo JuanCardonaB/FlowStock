@@ -9,12 +9,14 @@ class users_types(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False, unique=True)
     created_at = Column(DateTime, nullable=False)
+    is_deleted = Column(Integer, nullable=False)
 
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
-            "created_at": self.created_at
+            "created_at": self.created_at,
+            "is_deleted": self.is_deleted
         }
 
 class users(Base):

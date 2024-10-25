@@ -1,9 +1,6 @@
 from fastapi import APIRouter, Form, UploadFile, File
-from fastapi.responses import JSONResponse
 from models.response_model import APIResponse
 from products.infrastructure  import products_infrastructure
-from products.model import product_model
-from db.models.FlowStockDB import products
 from typing import List, Optional
 import time
 import os
@@ -59,11 +56,15 @@ def create_product(
 def get_product(product_id: int = Form(...)):
     return products_infrastructure.get_product_by_id(product_id)
 
+# This route deletes a product.
+@router.post("/delete_product", response_model=APIResponse)
+def delete_product(product_id: int = Form(...)):
+    product_id: int = Form(...),
+    title: str = Form(...),
+
 # This route updates a product.
 @router.put("/update_product", response_model=APIResponse)
 async def edit_product(
-    product_id: int = Form(...),
-    title: str = Form(...),
     description: str = Form(...),
     price: float = Form(...),
     stock: int = Form(...),
@@ -106,8 +107,4 @@ async def edit_product(
     }
 
     return products_infrastructure.update_product(product_data)
-
-# This route deletes a product.
-@router.post("/delete_product", response_model=APIResponse)
-def delete_product(product_id: int = Form(...)):
     return products_infrastructure.delete_product(product_id)

@@ -85,8 +85,8 @@ def delete_user_type(id: users_types) -> APIResponse:
                 status_code=404
             )
         
-        # Delete the user type
-        session.delete(user_type)
+        user_type.is_deleted = 1
+        
         # Commit the session
         session.commit()
         # Close the session
@@ -147,7 +147,7 @@ def update_user_type(user_type_data: users_types) -> APIResponse:
     try:
         session = Session()
         # Fetch the user type by id
-        user_type = session.query(users_types).filter_by(id=user_type_data.id).first()
+        user_type = session.query(users_types).filter_by(id=user_type_data['id']).first()
         # If the user type does not exist return an error
         if not user_type:
             return APIResponse(
@@ -158,7 +158,7 @@ def update_user_type(user_type_data: users_types) -> APIResponse:
             )
         
         # Update the user type name
-        user_type.name = user_type_data.name
+        user_type.name = user_type_data['name']
         # Commit the session
         session.commit()
         # Get the user type data
