@@ -59,12 +59,13 @@ def get_product(product_id: int = Form(...)):
 # This route deletes a product.
 @router.post("/delete_product", response_model=APIResponse)
 def delete_product(product_id: int = Form(...)):
-    product_id: int = Form(...),
-    title: str = Form(...),
+    return products_infrastructure.delete_product(product_id)
 
 # This route updates a product.
 @router.put("/update_product", response_model=APIResponse)
 async def edit_product(
+    product_id: int = Form(...),
+    title: str = Form(...),
     description: str = Form(...),
     price: float = Form(...),
     stock: int = Form(...),
@@ -107,4 +108,3 @@ async def edit_product(
     }
 
     return products_infrastructure.update_product(product_data)
-    return products_infrastructure.delete_product(product_id)
