@@ -35,3 +35,6 @@ except Exception as e:
 
 # commando to run view
 # npm run dev or sudo npm run dev
+
+# command to save dependencies
+# pip freeze > requirements.txt

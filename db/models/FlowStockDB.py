@@ -49,6 +49,7 @@ class products(Base):
     description = Column(String(50), nullable=False)
     price = Column(Float, nullable=False)
     stock = Column(Integer, nullable=False)
+    product_images = Column(Text, nullable=False)
     created_at = Column(DateTime, nullable=False)
 
     def to_dict(self):
@@ -58,6 +59,7 @@ class products(Base):
             "description": self.description,
             "price": self.price,
             "stock": self.stock,
+            "product_images": self.product_images,
             "created_at": self.created_at
         }
     

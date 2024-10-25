@@ -37,12 +37,20 @@ def get_products():
 # This function creates a product.
 def create_product(request: product_model.ProductRequest) -> APIResponse:
     try:
+
+        images = []
+        for image in request['images']:
+            image = image.split('/')[-1]
+            images.append(image)
+        images = ','.join(images)
+
         session = Session()
         new_product = products(
-            title=request.title,
-            description=request.description,
-            price=request.price,
-            stock=request.stock,
+            title=request['title'],
+            description=request['description'],
+            price=request['price'],
+            stock=request["stock"],
+            product_images=images,
             created_at=datetime.now()
         )
         session.add(new_product)
@@ -94,11 +102,11 @@ def get_product_by_id(id: int) -> APIResponse:
         )
     
 # This function updates a product.
-def update_product(request: product_model.ProductUpdateRequest) -> APIResponse:
+def update_product(request: product_model.ProductResponse) -> APIResponse:
     try:
         session = Session()
 
-        product = session.query(products).filter_by(id=request.id).first()
+        product = session.query(products).filter_by(id=request['id']).first()
 
         if not product:
             return APIResponse(
@@ -108,11 +116,12 @@ def update_product(request: product_model.ProductUpdateRequest) -> APIResponse:
                 status_code=404
             )
         
-        product.title = request.title
-        product.description = request.description
-        product.price = request.price
-        product.stock = request.stock
-        product.created_at = request.created_at
+        product.title = request['title']
+        product.description = request['description']
+        product.price = request['price']
+        product.stock = request['stock']
+        product.created_at = request['created_at']
+        product.product_images = ','.join(request['images']) if type(request['images']) == "<class 'list'>" else request['images']
 
         session.commit()
         product_data = product.to_dict()
